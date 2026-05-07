@@ -19,7 +19,6 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
     const totalProducts = products.length;
     const lowStockProducts = products.filter((product) => Number(product.stock) < 20).length;
     const activeProducts = products.filter((product) => product.status === 'Đang bán').length;
-
     return { totalProducts, lowStockProducts, activeProducts };
   }, [products]);
 
@@ -35,11 +34,7 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const payload = {
-      ...formState,
-      stock: Number(formState.stock),
-    };
+    const payload = { ...formState, stock: Number(formState.stock) };
 
     if (editingProductId) {
       await onUpdateProduct(editingProductId, payload);
@@ -67,11 +62,9 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
 
   const handleDelete = async (productId) => {
     await onDeleteProduct(productId);
-
     if (editingProductId === productId) {
       resetForm();
     }
-
     setFeedbackMessage('Đã xóa sản phẩm.');
   };
 
@@ -93,12 +86,10 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
                   <Form.Label>Tên sách</Form.Label>
                   <Form.Control name="name" value={formState.name} onChange={handleChange} required />
                 </Form.Group>
-
                 <Form.Group controlId="product-author">
                   <Form.Label>Tác giả</Form.Label>
                   <Form.Control name="author" value={formState.author} onChange={handleChange} required />
                 </Form.Group>
-
                 <Row className="g-3">
                   <Col sm={6}>
                     <Form.Group controlId="product-category">
@@ -113,7 +104,6 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
                     </Form.Group>
                   </Col>
                 </Row>
-
                 <Row className="g-3">
                   <Col sm={6}>
                     <Form.Group controlId="product-stock">
@@ -132,14 +122,9 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
                     </Form.Group>
                   </Col>
                 </Row>
-
                 <div className="hero-actions mt-4">
-                  <Button type="submit" variant="dark">
-                    {editingProductId ? 'Lưu thay đổi' : 'Tạo sản phẩm'}
-                  </Button>
-                  <Button type="button" variant="outline-dark" onClick={resetForm}>
-                    Làm mới
-                  </Button>
+                  <Button type="submit" variant="dark">{editingProductId ? 'Lưu thay đổi' : 'Tạo sản phẩm'}</Button>
+                  <Button type="button" variant="outline-dark" onClick={resetForm}>Làm mới</Button>
                 </div>
               </Form>
 
@@ -154,7 +139,6 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
             </Card.Body>
           </Card>
         </Col>
-
         <Col xl={7}>
           <Card className="data-card h-100">
             <Card.Body>
@@ -188,19 +172,11 @@ function ProductManagementSection({ products, onCreateProduct, onDeleteProduct, 
                       <td>{product.category}</td>
                       <td>{product.price}</td>
                       <td>{product.stock}</td>
-                      <td>
-                        <Badge bg={product.status === 'Đang bán' ? 'success' : product.status === 'Sắp hết' ? 'warning' : 'secondary'}>
-                          {product.status}
-                        </Badge>
-                      </td>
+                      <td><Badge bg={product.status === 'Đang bán' ? 'success' : product.status === 'Sắp hết' ? 'warning' : 'secondary'}>{product.status}</Badge></td>
                       <td>
                         <div className="table-actions">
-                          <Button variant="outline-dark" size="sm" onClick={() => handleEdit(product)}>
-                            Sửa
-                          </Button>
-                          <Button variant="outline-danger" size="sm" onClick={() => handleDelete(product.id)}>
-                            Xóa
-                          </Button>
+                          <Button variant="outline-dark" size="sm" onClick={() => handleEdit(product)}>Sửa</Button>
+                          <Button variant="outline-danger" size="sm" onClick={() => handleDelete(product.id)}>Xóa</Button>
                         </div>
                       </td>
                     </tr>

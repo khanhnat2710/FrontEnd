@@ -7,7 +7,7 @@ function Sidebar({ menuItems, activePage, onNavigate }) {
         <p className="eyebrow">BookStore Admin</p>
         <h1 className="sidebar-title">Trang quản lý nhà sách</h1>
         <p className="sidebar-text">
-          Theo dõi doanh thu, tồn kho và đơn hàng trong một màn hình duy nhất.
+          Theo dõi doanh thu, tồn kho, đơn hàng và nhân sự trong một màn hình duy nhất.
         </p>
       </div>
 
@@ -30,7 +30,7 @@ function Sidebar({ menuItems, activePage, onNavigate }) {
         <Card.Body>
           <Badge bg="warning" text="dark" className="mb-3">Mục tiêu tháng</Badge>
           <h3>78%</h3>
-          <p className="text-black">Đã đạt 312 / 400 đơn hàng. Cần đẩy mạnh danh mục sách mới.</p>
+          <p>Đã đạt 312 / 400 đơn hàng. Cần đẩy mạnh danh mục sách mới và vận hành ca sáng.</p>
           <ProgressBar now={78} variant="warning" />
         </Card.Body>
       </Card>

@@ -2,25 +2,40 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { Alert, Badge, Button, Card, Col, Container, ProgressBar, Row, Spinner, Table } from 'react-bootstrap';
 import AlertsSection from './components/AlertsSection';
+import CustomerManagementSection from './components/CustomerManagementSection';
 import HeroSection from './components/HeroSection';
 import InventorySection from './components/InventorySection';
+import OrderManagementSection from './components/OrderManagementSection';
 import OrdersSection from './components/OrdersSection';
 import PageHeader from './components/PageHeader';
 import ProductManagementSection from './components/ProductManagementSection';
+import PromotionManagementSection from './components/PromotionManagementSection';
 import Sidebar from './components/Sidebar';
 import StaffManagementSection from './components/StaffManagementSection';
 import StaffSection from './components/StaffSection';
 import SummarySection from './components/SummarySection';
 import { dashboardData as initialDashboardData, menuItems } from './components/bookstoreData';
 import {
+  createCustomer,
+  createOrder,
   createProduct,
+  createPromotion,
   createStaffMember,
+  deleteCustomer,
+  deleteOrder,
   deleteProduct,
+  deletePromotion,
   deleteStaffMember,
+  getCustomers,
   getDashboardData,
+  getOrders,
   getProducts,
+  getPromotions,
   getStaffMembers,
+  updateCustomer,
+  updateOrder,
   updateProduct,
+  updatePromotion,
   updateStaffMember,
 } from './services/dashboardApi';
 
@@ -36,6 +51,9 @@ function App() {
   const [dashboardData, setDashboardData] = useState(initialDashboardData);
   const [products, setProducts] = useState([]);
   const [staffMembers, setStaffMembers] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [promotions, setPromotions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -51,21 +69,27 @@ function App() {
   useEffect(() => {
     let ignore = false;
 
-    async function loadDashboardData() {
+    async function loadAllData() {
       setIsLoading(true);
       setErrorMessage('');
 
       try {
-        const [dashboardResponse, productsResponse, staffResponse] = await Promise.all([
+        const [dashboardResponse, productsResponse, staffResponse, ordersResponse, customersResponse, promotionsResponse] = await Promise.all([
           getDashboardData(),
           getProducts(),
           getStaffMembers(),
+          getOrders(),
+          getCustomers(),
+          getPromotions(),
         ]);
 
         if (!ignore) {
           setDashboardData(dashboardResponse);
           setProducts(productsResponse);
           setStaffMembers(staffResponse);
+          setOrders(ordersResponse);
+          setCustomers(customersResponse);
+          setPromotions(promotionsResponse);
         }
       } catch (error) {
         if (!ignore) {
@@ -73,6 +97,9 @@ function App() {
           setDashboardData(initialDashboardData);
           setProducts([]);
           setStaffMembers([]);
+          setOrders([]);
+          setCustomers([]);
+          setPromotions([]);
         }
       } finally {
         if (!ignore) {
@@ -81,11 +108,16 @@ function App() {
       }
     }
 
-    loadDashboardData();
+    loadAllData();
     return () => {
       ignore = true;
     };
   }, []);
+
+  const refreshDashboard = async () => {
+    const dashboardResponse = await getDashboardData();
+    setDashboardData(dashboardResponse);
+  };
 
   const handleNavigate = (pageId) => {
     window.location.hash = pageId;
@@ -94,44 +126,97 @@ function App() {
 
   const handleCreateProduct = async (productData) => {
     const newProduct = await createProduct(productData);
-    setProducts((currentProducts) => [newProduct, ...currentProducts]);
+    setProducts((current) => [newProduct, ...current]);
+    await refreshDashboard();
   };
 
   const handleUpdateProduct = async (productId, productData) => {
     const updatedProduct = await updateProduct(productId, productData);
-    setProducts((currentProducts) => currentProducts.map((product) => (
-      product.id === productId ? updatedProduct : product
-    )));
+    setProducts((current) => current.map((product) => (product.id === productId ? updatedProduct : product)));
+    await refreshDashboard();
   };
 
   const handleDeleteProduct = async (productId) => {
     await deleteProduct(productId);
-    setProducts((currentProducts) => currentProducts.filter((product) => product.id !== productId));
+    setProducts((current) => current.filter((product) => product.id !== productId));
+    await refreshDashboard();
   };
 
   const handleCreateStaff = async (staffData) => {
     const newStaffMember = await createStaffMember(staffData);
-    setStaffMembers((currentStaff) => [newStaffMember, ...currentStaff]);
+    setStaffMembers((current) => [newStaffMember, ...current]);
+    await refreshDashboard();
   };
 
   const handleUpdateStaff = async (staffId, staffData) => {
     const updatedStaffMember = await updateStaffMember(staffId, staffData);
-    setStaffMembers((currentStaff) => currentStaff.map((staffMember) => (
-      staffMember.id === staffId ? updatedStaffMember : staffMember
-    )));
+    setStaffMembers((current) => current.map((staffMember) => (staffMember.id === staffId ? updatedStaffMember : staffMember)));
+    await refreshDashboard();
   };
 
   const handleDeleteStaff = async (staffId) => {
     await deleteStaffMember(staffId);
-    setStaffMembers((currentStaff) => currentStaff.filter((staffMember) => staffMember.id !== staffId));
+    setStaffMembers((current) => current.filter((staffMember) => staffMember.id !== staffId));
+    await refreshDashboard();
+  };
+
+  const handleCreateOrder = async (orderData) => {
+    const newOrder = await createOrder(orderData);
+    setOrders((current) => [newOrder, ...current]);
+    await refreshDashboard();
+  };
+
+  const handleUpdateOrder = async (orderId, orderData) => {
+    const updatedOrder = await updateOrder(orderId, orderData);
+    setOrders((current) => current.map((order) => (order.id === orderId ? updatedOrder : order)));
+    await refreshDashboard();
+  };
+
+  const handleDeleteOrder = async (orderId) => {
+    await deleteOrder(orderId);
+    setOrders((current) => current.filter((order) => order.id !== orderId));
+    await refreshDashboard();
+  };
+
+  const handleCreateCustomer = async (customerData) => {
+    const newCustomer = await createCustomer(customerData);
+    setCustomers((current) => [newCustomer, ...current]);
+    await refreshDashboard();
+  };
+
+  const handleUpdateCustomer = async (customerId, customerData) => {
+    const updatedCustomer = await updateCustomer(customerId, customerData);
+    setCustomers((current) => current.map((customer) => (customer.id === customerId ? updatedCustomer : customer)));
+    await refreshDashboard();
+  };
+
+  const handleDeleteCustomer = async (customerId) => {
+    await deleteCustomer(customerId);
+    setCustomers((current) => current.filter((customer) => customer.id !== customerId));
+    await refreshDashboard();
+  };
+
+  const handleCreatePromotion = async (promotionData) => {
+    const newPromotion = await createPromotion(promotionData);
+    setPromotions((current) => [newPromotion, ...current]);
+    await refreshDashboard();
+  };
+
+  const handleUpdatePromotion = async (promotionId, promotionData) => {
+    const updatedPromotion = await updatePromotion(promotionId, promotionData);
+    setPromotions((current) => current.map((promotion) => (promotion.id === promotionId ? updatedPromotion : promotion)));
+    await refreshDashboard();
+  };
+
+  const handleDeletePromotion = async (promotionId) => {
+    await deletePromotion(promotionId);
+    setPromotions((current) => current.filter((promotion) => promotion.id !== promotionId));
+    await refreshDashboard();
   };
 
   const {
     alerts,
-    customers,
     featuredBooks,
-    orders,
-    promotions,
     reportCards,
     staffTasks,
     summaryCards,
@@ -169,12 +254,7 @@ function App() {
               title="Theo dõi vòng đời và tồn kho của từng đầu sách"
               description="Tạo mới, cập nhật, xóa sản phẩm và kiểm soát trạng thái bán ngay trong cùng một màn hình quản trị."
             />
-            <ProductManagementSection
-              products={products}
-              onCreateProduct={handleCreateProduct}
-              onDeleteProduct={handleDeleteProduct}
-              onUpdateProduct={handleUpdateProduct}
-            />
+            <ProductManagementSection products={products} onCreateProduct={handleCreateProduct} onDeleteProduct={handleDeleteProduct} onUpdateProduct={handleUpdateProduct} />
           </>
         );
       case 'nhan-su':
@@ -185,12 +265,40 @@ function App() {
               title="Điều phối đội ngũ vận hành theo ca làm việc"
               description="Tạo mới, cập nhật, xóa hồ sơ nhân sự và kiểm soát trạng thái làm việc của từng thành viên."
             />
-            <StaffManagementSection
-              staffMembers={staffMembers}
-              onCreateStaff={handleCreateStaff}
-              onDeleteStaff={handleDeleteStaff}
-              onUpdateStaff={handleUpdateStaff}
+            <StaffManagementSection staffMembers={staffMembers} onCreateStaff={handleCreateStaff} onDeleteStaff={handleDeleteStaff} onUpdateStaff={handleUpdateStaff} />
+          </>
+        );
+      case 'don-hang':
+        return (
+          <>
+            <PageHeader
+              eyebrow="Quản lý đơn hàng"
+              title="Theo dõi và cập nhật luồng xử lý đơn hàng"
+              description="Tạo mới, cập nhật, xóa đơn hàng và đồng bộ tình trạng vận hành theo từng kênh bán."
             />
+            <OrderManagementSection customers={customers} orders={orders} products={products} onCreateOrder={handleCreateOrder} onDeleteOrder={handleDeleteOrder} onUpdateOrder={handleUpdateOrder} />
+          </>
+        );
+      case 'khach-hang':
+        return (
+          <>
+            <PageHeader
+              eyebrow="Quản lý khách hàng"
+              title="Theo dõi giá trị và tần suất mua của từng khách"
+              description="Tạo mới, cập nhật, xóa hồ sơ khách hàng và kiểm soát phân khúc thành viên trong hệ thống."
+            />
+            <CustomerManagementSection customers={customers} onCreateCustomer={handleCreateCustomer} onDeleteCustomer={handleDeleteCustomer} onUpdateCustomer={handleUpdateCustomer} />
+          </>
+        );
+      case 'khuyen-mai':
+        return (
+          <>
+            <PageHeader
+              eyebrow="Quản lý khuyến mãi"
+              title="Điều phối chiến dịch ưu đãi đang chạy"
+              description="Tạo mới, cập nhật, xóa chương trình khuyến mãi và theo dõi hiệu quả của từng chiến dịch."
+            />
+            <PromotionManagementSection promotions={promotions} onCreatePromotion={handleCreatePromotion} onDeletePromotion={handleDeletePromotion} onUpdatePromotion={handleUpdatePromotion} />
           </>
         );
       case 'kho-sach':
@@ -199,7 +307,7 @@ function App() {
             <PageHeader
               eyebrow="Kho sách"
               title="Kiểm soát nhập xuất và mức tồn kho"
-              description="Theo dõi đầu sách bán chạy, các mã sắp hết hàng và ưu tiên nhập bổ sung theo nhu cầu thực tế."
+              description="Kho sách được kết nối trực tiếp với dữ liệu sản phẩm. Mọi thay đổi CRUD ở trang sản phẩm sẽ phản ánh tại đây."
             />
             <section className="mt-4">
               <Row className="g-4">
@@ -212,12 +320,12 @@ function App() {
                       <p className="section-kicker">Tình trạng kho</p>
                       <h3 className="mb-4">Nhóm sách cần ưu tiên</h3>
                       {featuredBooks.map((book) => (
-                        <div className="task-block" key={book.name}>
+                        <div className="task-block" key={book.id || book.name}>
                           <div className="task-head">
                             <span>{book.name}</span>
                             <strong>{book.stock} cuốn</strong>
                           </div>
-                          <ProgressBar now={Math.min(book.stock * 2, 100)} variant={book.stock < 15 ? 'warning' : 'success'} />
+                          <ProgressBar now={Math.min(Number(book.stock) * 2, 100)} variant={Number(book.stock) < 15 ? 'warning' : 'success'} />
                         </div>
                       ))}
                     </Card.Body>
@@ -227,127 +335,13 @@ function App() {
             </section>
           </>
         );
-      case 'don-hang':
-        return (
-          <>
-            <PageHeader
-              eyebrow="Đơn hàng"
-              title="Theo dõi vận hành đơn hàng theo từng kênh"
-              description="Tập trung vào trạng thái giao hàng, kênh bán hiệu quả và các đơn đang chờ xử lý."
-            />
-            <section className="mt-4">
-              <Row className="g-4">
-                <Col xl={7}>
-                  <OrdersSection orders={orders} />
-                </Col>
-                <Col xl={5}>
-                  <AlertsSection alerts={alerts} />
-                </Col>
-              </Row>
-            </section>
-          </>
-        );
-      case 'khach-hang':
-        return (
-          <>
-            <PageHeader
-              eyebrow="Khách hàng"
-              title="Quản lý hội viên và mức chi tiêu"
-              description="Nhận diện khách hàng trung thành, khách mới và nhóm cần chăm sóc lại để tăng tần suất quay lại."
-            />
-            <section className="mt-4">
-              <Row className="g-4">
-                <Col xl={8}>
-                  <Card className="data-card h-100">
-                    <Card.Body>
-                      <div className="section-head">
-                        <div>
-                          <p className="section-kicker">Danh sách khách hàng</p>
-                          <h3>Khách hàng nổi bật trong tháng</h3>
-                        </div>
-                      </div>
-                      <Table responsive hover className="align-middle custom-table">
-                        <thead>
-                          <tr>
-                            <th>Khách hàng</th>
-                            <th>Phân khúc</th>
-                            <th>Chi tiêu</th>
-                            <th>Lượt mua</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {customers.map((customer) => (
-                            <tr key={customer.name}>
-                              <td>{customer.name}</td>
-                              <td><Badge bg={customer.segment === 'VIP' ? 'dark' : 'secondary'}>{customer.segment}</Badge></td>
-                              <td>{customer.spend}</td>
-                              <td>{customer.visits}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </Table>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col xl={4}>
-                  <Card className="data-card h-100">
-                    <Card.Body>
-                      <p className="section-kicker">Chăm sóc khách hàng</p>
-                      <h3 className="mb-4">Nhóm cần hành động</h3>
-                      <div className="alert-stack">
-                        <div className="alert-item">
-                          <strong>Khách VIP 30 ngày chưa quay lại</strong>
-                          <span>Gửi voucher 10% cho 12 khách hàng có giá trị cao.</span>
-                        </div>
-                        <div className="alert-item">
-                          <strong>Khách mới trong tuần</strong>
-                          <span>Đã có 26 tài khoản mới, nên gửi chuỗi chào mừng tự động.</span>
-                        </div>
-                        <div className="alert-item">
-                          <strong>Khách mua theo combo</strong>
-                          <span>Nên đề xuất thêm sách kỹ năng và văn học thiếu nhi.</span>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-            </section>
-          </>
-        );
-      case 'khuyen-mai':
-        return (
-          <>
-            <PageHeader
-              eyebrow="Khuyến mãi"
-              title="Theo dõi hiệu quả các chiến dịch ưu đãi"
-              description="So sánh chiến dịch đang chạy, tác động đến doanh thu và chọn chương trình cần nhân rộng."
-            />
-            <section className="mt-4">
-              <Row className="g-4">
-                {promotions.map((promotion) => (
-                  <Col md={6} xl={4} key={promotion.name}>
-                    <Card className="summary-card promotion-card h-100">
-                      <Card.Body>
-                        <p className="section-kicker">{promotion.period}</p>
-                        <h3>{promotion.name}</h3>
-                        <p className="promotion-effect">{promotion.effect}</p>
-                        <Badge bg="warning" text="dark">Đang hoạt động</Badge>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            </section>
-          </>
-        );
       case 'bao-cao':
         return (
           <>
             <PageHeader
               eyebrow="Báo cáo"
-              title="Bức tranh kinh doanh theo tuần và theo tháng"
-              description="Tổng hợp các chỉ số tài chính và vận hành để hỗ trợ quyết định nhập hàng, bán hàng và chăm sóc khách."
+              title="Bức tranh kinh doanh được tổng hợp từ toàn bộ dữ liệu"
+              description="Các chỉ số dưới đây được tính lại từ sản phẩm, đơn hàng, khách hàng, khuyến mãi và nhân sự sau mỗi thao tác CRUD."
             />
             <section className="mt-4">
               <Row className="g-4">
@@ -368,7 +362,7 @@ function App() {
               <section className="mt-4">
                 <Row className="g-4">
                   <Col xl={7}>
-                    <OrdersSection orders={orders} />
+                    <OrdersSection orders={orders.slice(0, 4)} />
                   </Col>
                   <Col xl={5}>
                     <StaffSection staffTasks={staffTasks} />
@@ -397,7 +391,7 @@ function App() {
             <section className="mt-4">
               <Row className="g-4">
                 <Col xl={7}>
-                  <OrdersSection orders={orders} />
+                  <OrdersSection orders={orders.slice(0, 4)} />
                 </Col>
                 <Col xl={5}>
                   <StaffSection staffTasks={staffTasks} />
@@ -416,7 +410,6 @@ function App() {
           <Col xl={2} lg={3}>
             <Sidebar menuItems={menuItems} activePage={activePage} onNavigate={handleNavigate} />
           </Col>
-
           <Col xl={10} lg={9}>
             <main className="content-panel">
               {errorMessage ? renderErrorState() : null}

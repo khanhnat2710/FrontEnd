@@ -1,0 +1,6 @@
+[
+  { "id": "#DH1024", "customer": "Nguyễn Minh Châu", "channel": "Website", "total": "420.000đ", "state": "Đang đóng gói" },
+  { "id": "#DH1025", "customer": "Trần Bảo Hân", "channel": "Shopee", "total": "285.000đ", "state": "Đã giao" },
+  { "id": "#DH1026", "customer": "Lê Hoàng Nam", "channel": "Tại cửa hàng", "total": "650.000đ", "state": "Chờ thanh toán" },
+  { "id": "#DH1027", "customer": "Phạm Quỳnh Như", "channel": "Facebook", "total": "315.000đ", "state": "Đang xử lý" }
+]

@@ -19,7 +19,6 @@ function StaffManagementSection({ staffMembers, onCreateStaff, onDeleteStaff, on
     const totalStaff = staffMembers.length;
     const activeStaff = staffMembers.filter((staff) => staff.status === 'Đang làm việc').length;
     const morningShift = staffMembers.filter((staff) => staff.shift === 'Ca sáng').length;
-
     return { totalStaff, activeStaff, morningShift };
   }, [staffMembers]);
 
@@ -62,11 +61,9 @@ function StaffManagementSection({ staffMembers, onCreateStaff, onDeleteStaff, on
 
   const handleDelete = async (staffId) => {
     await onDeleteStaff(staffId);
-
     if (editingStaffId === staffId) {
       resetForm();
     }
-
     setFeedbackMessage('Đã xóa nhân sự.');
   };
 
@@ -88,7 +85,6 @@ function StaffManagementSection({ staffMembers, onCreateStaff, onDeleteStaff, on
                   <Form.Label>Họ và tên</Form.Label>
                   <Form.Control name="fullName" value={formState.fullName} onChange={handleChange} required />
                 </Form.Group>
-
                 <Form.Group controlId="staff-role">
                   <Form.Label>Chức vụ</Form.Label>
                   <Form.Select name="role" value={formState.role} onChange={handleChange}>
@@ -97,17 +93,14 @@ function StaffManagementSection({ staffMembers, onCreateStaff, onDeleteStaff, on
                     <option value="Nhân viên bán hàng">Nhân viên bán hàng</option>
                   </Form.Select>
                 </Form.Group>
-
                 <Form.Group controlId="staff-email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control name="email" type="email" value={formState.email} onChange={handleChange} required />
                 </Form.Group>
-
                 <Form.Group controlId="staff-phone">
                   <Form.Label>Số điện thoại</Form.Label>
                   <Form.Control name="phone" value={formState.phone} onChange={handleChange} required />
                 </Form.Group>
-
                 <Row className="g-3">
                   <Col sm={6}>
                     <Form.Group controlId="staff-shift">
@@ -130,14 +123,9 @@ function StaffManagementSection({ staffMembers, onCreateStaff, onDeleteStaff, on
                     </Form.Group>
                   </Col>
                 </Row>
-
                 <div className="hero-actions mt-4">
-                  <Button type="submit" variant="dark">
-                    {editingStaffId ? 'Lưu thay đổi' : 'Tạo nhân sự'}
-                  </Button>
-                  <Button type="button" variant="outline-dark" onClick={resetForm}>
-                    Làm mới
-                  </Button>
+                  <Button type="submit" variant="dark">{editingStaffId ? 'Lưu thay đổi' : 'Tạo nhân sự'}</Button>
+                  <Button type="button" variant="outline-dark" onClick={resetForm}>Làm mới</Button>
                 </div>
               </Form>
 
@@ -152,7 +140,6 @@ function StaffManagementSection({ staffMembers, onCreateStaff, onDeleteStaff, on
             </Card.Body>
           </Card>
         </Col>
-
         <Col xl={7}>
           <Card className="data-card h-100">
             <Card.Body>
@@ -186,19 +173,11 @@ function StaffManagementSection({ staffMembers, onCreateStaff, onDeleteStaff, on
                       <td>{staffMember.role}</td>
                       <td>{staffMember.shift}</td>
                       <td>{staffMember.phone}</td>
-                      <td>
-                        <Badge bg={staffMember.status === 'Đang làm việc' ? 'success' : staffMember.status === 'Đang nghỉ phép' ? 'warning' : 'secondary'}>
-                          {staffMember.status}
-                        </Badge>
-                      </td>
+                      <td><Badge bg={staffMember.status === 'Đang làm việc' ? 'success' : staffMember.status === 'Đang nghỉ phép' ? 'warning' : 'secondary'}>{staffMember.status}</Badge></td>
                       <td>
                         <div className="table-actions">
-                          <Button variant="outline-dark" size="sm" onClick={() => handleEdit(staffMember)}>
-                            Sửa
-                          </Button>
-                          <Button variant="outline-danger" size="sm" onClick={() => handleDelete(staffMember.id)}>
-                            Xóa
-                          </Button>
+                          <Button variant="outline-dark" size="sm" onClick={() => handleEdit(staffMember)}>Sửa</Button>
+                          <Button variant="outline-danger" size="sm" onClick={() => handleDelete(staffMember.id)}>Xóa</Button>
                         </div>
                       </td>
                     </tr>

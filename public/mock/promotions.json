@@ -1,0 +1,5 @@
+[
+  { "id": "KM001", "name": "Flash sale cuối tuần", "period": "26/04 - 28/04", "effect": "+18% đơn online", "status": "Đang chạy" },
+  { "id": "KM002", "name": "Mua 2 tặng 1 sách thiếu nhi", "period": "01/05 - 07/05", "effect": "+26% lượt mua tại quầy", "status": "Đang chạy" },
+  { "id": "KM003", "name": "Voucher khách hàng mới", "period": "Đang chạy", "effect": "Tỉ lệ quay lại 31%", "status": "Tạm dừng" }
+]

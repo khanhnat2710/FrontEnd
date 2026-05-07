@@ -1,0 +1,5 @@
+[
+  { "id": "KH001", "name": "Nguyễn Thu Hà", "segment": "VIP", "spend": "4.200.000đ", "visits": 18 },
+  { "id": "KH002", "name": "Phan Gia Huy", "segment": "Thành viên", "spend": "1.580.000đ", "visits": 9 },
+  { "id": "KH003", "name": "Lê Trúc Linh", "segment": "Mới", "spend": "620.000đ", "visits": 3 }
+]

@@ -23,13 +23,13 @@ function InventorySection({ featuredBooks }) {
           </thead>
           <tbody>
             {featuredBooks.map((book) => (
-              <tr key={book.name}>
+              <tr key={book.id || book.name}>
                 <td>{book.name}</td>
                 <td>{book.author}</td>
                 <td>{book.stock}</td>
                 <td>{book.price}</td>
                 <td>
-                  <Badge bg={book.status === 'Bán chạy' ? 'success' : book.status === 'Ổn định' ? 'secondary' : 'warning'}>
+                  <Badge bg={book.status === 'Đang bán' ? 'success' : book.status === 'Ổn định' ? 'secondary' : 'warning'}>
                     {book.status}
                   </Badge>
                 </td>
