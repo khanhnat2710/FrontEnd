@@ -1,38 +1,297 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.bookstore-app-shell {
   min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(214, 170, 84, 0.28), transparent 30%),
+    linear-gradient(135deg, #f8f3ea 0%, #efe1cf 45%, #ddd1c5 100%);
+  color: #1f1a17;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bookstore-app-shell button,
+.bookstore-app-shell input,
+.bookstore-app-shell textarea,
+.bookstore-app-shell table {
+  font-family: inherit;
+}
+
+.sidebar-panel,
+.content-panel,
+.hero-panel,
+.summary-card,
+.data-card,
+.promo-card,
+.spotlight-card {
+  border: 0;
+  border-radius: 28px;
+  box-shadow: 0 22px 60px rgba(59, 39, 16, 0.08);
+}
+
+.sidebar-panel {
+  background: linear-gradient(180deg, #402a23 0%, #211613 100%);
+  color: #fff7ef;
+  padding: 28px 22px;
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  min-height: calc(100vh - 2rem);
+  position: sticky;
+  top: 1rem;
+}
+
+.sidebar-title {
+  font-size: 2rem;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  font-family: Cambria, Georgia, "Times New Roman", serif;
+}
+
+.sidebar-text,
+.hero-text,
+.spotlight-card p,
+.promo-card p {
+  color: rgba(255, 247, 239, 0.8);
+}
+
+.eyebrow,
+.section-kicker,
+.spotlight-label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.menu-list {
+  background: transparent;
+  border: 0;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff7ef;
+  border: 0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-weight: 600;
+  text-align: left;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.menu-item:hover,
+.menu-item:focus {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff7ef;
+  transform: translateX(4px);
+}
+
+.menu-item.active,
+.menu-item.active:hover,
+.menu-item.active:focus {
+  background: linear-gradient(135deg, #f2c46d, #f0a03b);
+  color: #24160f;
+}
+
+.promo-card {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff7ef;
+}
+
+.content-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-panel {
+  background: linear-gradient(135deg, rgba(255, 248, 240, 0.92), rgba(255, 235, 205, 0.88));
+  padding: 32px;
+}
+
+.hero-panel h2,
+.page-title {
+  font-family: Cambria, Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.5vw, 3.3rem);
+  max-width: 12ch;
+  margin-bottom: 16px;
+}
+
+.page-header-panel .page-title {
+  max-width: 16ch;
+}
+
+.hero-text,
+.page-description {
+  color: #5c4a3d;
+  max-width: 60ch;
+  margin-bottom: 24px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.spotlight-card {
+  background: linear-gradient(180deg, #2c211d, #17110f);
+  color: #fff7ef;
+  height: 100%;
+}
+
+.spotlight-card h3,
+.section-head h3,
+.summary-card h3,
+.insight-panel h4,
+.promotion-card h3,
+.data-card h3 {
+  font-family: Cambria, Georgia, "Times New Roman", serif;
+}
+
+.spotlight-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.spotlight-metrics div {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.spotlight-metrics strong,
+.summary-row h3,
+.task-head strong {
+  display: block;
+  font-size: 1.3rem;
+}
+
+.spotlight-metrics span {
+  color: rgba(255, 247, 239, 0.76);
+}
+
+.summary-card,
+.data-card {
+  background: rgba(255, 252, 247, 0.84);
+  backdrop-filter: blur(12px);
+}
+
+.summary-card p,
+.report-description,
+.promotion-effect {
+  color: #6e5b4e;
+}
+
+.summary-row,
+.section-head,
+.task-head,
+.order-row {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.App-link {
-  color: #61dafb;
+.custom-table thead th {
+  color: #786458;
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom-color: rgba(120, 100, 88, 0.18);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.custom-table tbody td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom-color: rgba(120, 100, 88, 0.1);
+}
+
+.alert-stack,
+.order-list {
+  display: grid;
+  gap: 14px;
+}
+
+.alert-item,
+.order-row,
+.insight-panel {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px 18px;
+}
+
+.alert-item strong,
+.order-row strong {
+  display: block;
+  color: #231913;
+  margin-bottom: 4px;
+}
+
+.alert-item span,
+.order-row span {
+  color: #6e5b4e;
+}
+
+.task-block + .task-block {
+  margin-top: 18px;
+}
+
+.task-head {
+  margin-bottom: 8px;
+}
+
+.task-head span {
+  color: #4b3f37;
+}
+
+.insight-panel {
+  margin-top: 24px;
+  background: linear-gradient(135deg, #f5dfb8, #f0bf73);
+  color: #281b11;
+}
+
+.insight-panel .section-kicker,
+.insight-panel p {
+  color: rgba(40, 27, 17, 0.75);
+}
+
+.promotion-card .badge,
+.summary-card .badge {
+  font-size: 0.82rem;
+}
+
+.form-control {
+  border-radius: 18px;
+  border-color: rgba(90, 69, 55, 0.16);
+}
+
+@media (max-width: 1199.98px) {
+  .sidebar-panel {
+    min-height: auto;
+    position: static;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 767.98px) {
+  .hero-panel {
+    padding: 22px;
+  }
+
+  .sidebar-panel,
+  .summary-card,
+  .data-card,
+  .spotlight-card,
+  .promo-card {
+    border-radius: 22px;
+  }
+
+  .hero-actions,
+  .section-head,
+  .order-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
