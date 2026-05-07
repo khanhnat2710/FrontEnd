@@ -1,0 +1,29 @@
+[
+  {
+    "id": "SP001",
+    "name": "Atomic Habits",
+    "author": "James Clear",
+    "category": "Kỹ năng sống",
+    "price": "165.000đ",
+    "stock": 32,
+    "status": "Đang bán"
+  },
+  {
+    "id": "SP002",
+    "name": "Nhà giả kim",
+    "author": "Paulo Coelho",
+    "category": "Văn học",
+    "price": "89.000đ",
+    "stock": 14,
+    "status": "Sắp hết"
+  },
+  {
+    "id": "SP003",
+    "name": "Dám bị ghét",
+    "author": "Kishimi Ichiro",
+    "category": "Tâm lý",
+    "price": "119.000đ",
+    "stock": 24,
+    "status": "Đang bán"
+  }
+]

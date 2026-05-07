@@ -1,5 +1,7 @@
 export const menuItems = [
   { id: 'tong-quan', label: 'Tổng quan' },
+  { id: 'san-pham', label: 'Sản phẩm' },
+  { id: 'nhan-su', label: 'Nhân sự' },
   { id: 'kho-sach', label: 'Kho sách' },
   { id: 'don-hang', label: 'Đơn hàng' },
   { id: 'khach-hang', label: 'Khách hàng' },

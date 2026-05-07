@@ -1,0 +1,29 @@
+[
+  {
+    "id": "NS001",
+    "fullName": "Nguyễn Thu Hà",
+    "role": "Quản lý cửa hàng",
+    "email": "thuha@bookstore.vn",
+    "phone": "0901234567",
+    "shift": "Ca sáng",
+    "status": "Đang làm việc"
+  },
+  {
+    "id": "NS002",
+    "fullName": "Trần Minh Khang",
+    "role": "Thu ngân",
+    "email": "minhkhang@bookstore.vn",
+    "phone": "0912345678",
+    "shift": "Ca chiều",
+    "status": "Đang làm việc"
+  },
+  {
+    "id": "NS003",
+    "fullName": "Lê Thảo Vy",
+    "role": "Kho vận",
+    "email": "thaovy@bookstore.vn",
+    "phone": "0987654321",
+    "shift": "Ca sáng",
+    "status": "Đang nghỉ phép"
+  }
+]

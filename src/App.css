@@ -263,7 +263,34 @@
   font-size: 0.82rem;
 }
 
+.product-form {
+  display: grid;
+  gap: 16px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.table-subtext {
+  color: #6e5b4e;
+  font-size: 0.92rem;
+  margin-top: 4px;
+}
+
+.product-feedback {
+  color: #5c4a3d;
+  font-weight: 600;
+}
+
 .form-control {
+  border-radius: 18px;
+  border-color: rgba(90, 69, 55, 0.16);
+}
+
+.form-select {
   border-radius: 18px;
   border-color: rgba(90, 69, 55, 0.16);
 }

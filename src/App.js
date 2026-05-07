@@ -6,11 +6,23 @@ import HeroSection from './components/HeroSection';
 import InventorySection from './components/InventorySection';
 import OrdersSection from './components/OrdersSection';
 import PageHeader from './components/PageHeader';
+import ProductManagementSection from './components/ProductManagementSection';
 import Sidebar from './components/Sidebar';
+import StaffManagementSection from './components/StaffManagementSection';
 import StaffSection from './components/StaffSection';
 import SummarySection from './components/SummarySection';
 import { dashboardData as initialDashboardData, menuItems } from './components/bookstoreData';
-import { getDashboardData } from './services/dashboardApi';
+import {
+  createProduct,
+  createStaffMember,
+  deleteProduct,
+  deleteStaffMember,
+  getDashboardData,
+  getProducts,
+  getStaffMembers,
+  updateProduct,
+  updateStaffMember,
+} from './services/dashboardApi';
 
 const defaultPage = 'tong-quan';
 
@@ -22,6 +34,8 @@ function getPageFromHash() {
 function App() {
   const [activePage, setActivePage] = useState(getPageFromHash);
   const [dashboardData, setDashboardData] = useState(initialDashboardData);
+  const [products, setProducts] = useState([]);
+  const [staffMembers, setStaffMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -42,15 +56,23 @@ function App() {
       setErrorMessage('');
 
       try {
-        const response = await getDashboardData();
+        const [dashboardResponse, productsResponse, staffResponse] = await Promise.all([
+          getDashboardData(),
+          getProducts(),
+          getStaffMembers(),
+        ]);
 
         if (!ignore) {
-          setDashboardData(response);
+          setDashboardData(dashboardResponse);
+          setProducts(productsResponse);
+          setStaffMembers(staffResponse);
         }
       } catch (error) {
         if (!ignore) {
           setErrorMessage('Không thể tải dữ liệu từ API. Đang hiển thị dữ liệu mẫu.');
           setDashboardData(initialDashboardData);
+          setProducts([]);
+          setStaffMembers([]);
         }
       } finally {
         if (!ignore) {
@@ -68,6 +90,40 @@ function App() {
   const handleNavigate = (pageId) => {
     window.location.hash = pageId;
     setActivePage(pageId);
+  };
+
+  const handleCreateProduct = async (productData) => {
+    const newProduct = await createProduct(productData);
+    setProducts((currentProducts) => [newProduct, ...currentProducts]);
+  };
+
+  const handleUpdateProduct = async (productId, productData) => {
+    const updatedProduct = await updateProduct(productId, productData);
+    setProducts((currentProducts) => currentProducts.map((product) => (
+      product.id === productId ? updatedProduct : product
+    )));
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    await deleteProduct(productId);
+    setProducts((currentProducts) => currentProducts.filter((product) => product.id !== productId));
+  };
+
+  const handleCreateStaff = async (staffData) => {
+    const newStaffMember = await createStaffMember(staffData);
+    setStaffMembers((currentStaff) => [newStaffMember, ...currentStaff]);
+  };
+
+  const handleUpdateStaff = async (staffId, staffData) => {
+    const updatedStaffMember = await updateStaffMember(staffId, staffData);
+    setStaffMembers((currentStaff) => currentStaff.map((staffMember) => (
+      staffMember.id === staffId ? updatedStaffMember : staffMember
+    )));
+  };
+
+  const handleDeleteStaff = async (staffId) => {
+    await deleteStaffMember(staffId);
+    setStaffMembers((currentStaff) => currentStaff.filter((staffMember) => staffMember.id !== staffId));
   };
 
   const {
@@ -105,6 +161,38 @@ function App() {
 
   const renderPageContent = () => {
     switch (activePage) {
+      case 'san-pham':
+        return (
+          <>
+            <PageHeader
+              eyebrow="Quản lý sản phẩm"
+              title="Theo dõi vòng đời và tồn kho của từng đầu sách"
+              description="Tạo mới, cập nhật, xóa sản phẩm và kiểm soát trạng thái bán ngay trong cùng một màn hình quản trị."
+            />
+            <ProductManagementSection
+              products={products}
+              onCreateProduct={handleCreateProduct}
+              onDeleteProduct={handleDeleteProduct}
+              onUpdateProduct={handleUpdateProduct}
+            />
+          </>
+        );
+      case 'nhan-su':
+        return (
+          <>
+            <PageHeader
+              eyebrow="Quản lý nhân sự"
+              title="Điều phối đội ngũ vận hành theo ca làm việc"
+              description="Tạo mới, cập nhật, xóa hồ sơ nhân sự và kiểm soát trạng thái làm việc của từng thành viên."
+            />
+            <StaffManagementSection
+              staffMembers={staffMembers}
+              onCreateStaff={handleCreateStaff}
+              onDeleteStaff={handleDeleteStaff}
+              onUpdateStaff={handleUpdateStaff}
+            />
+          </>
+        );
       case 'kho-sach':
         return (
           <>

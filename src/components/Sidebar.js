@@ -30,7 +30,7 @@ function Sidebar({ menuItems, activePage, onNavigate }) {
         <Card.Body>
           <Badge bg="warning" text="dark" className="mb-3">Mục tiêu tháng</Badge>
           <h3>78%</h3>
-          <p>Đã đạt 312 / 400 đơn hàng. Cần đẩy mạnh danh mục sách mới.</p>
+          <p className="text-black">Đã đạt 312 / 400 đơn hàng. Cần đẩy mạnh danh mục sách mới.</p>
           <ProgressBar now={78} variant="warning" />
         </Card.Body>
       </Card>
