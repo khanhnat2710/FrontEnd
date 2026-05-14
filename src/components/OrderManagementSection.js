@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge, Button, Card, Col, Form, Row, Table } from 'react-bootstrap';
 
 const defaultFormState = {
@@ -10,6 +10,9 @@ const defaultFormState = {
   state: 'Đang đóng gói',
 };
 
+const salesChannels = ['Website', 'Shopee', 'Facebook', 'Tại cửa hàng'];
+const orderStates = ['Đang đóng gói', 'Đang xử lý', 'Chờ thanh toán', 'Đã giao'];
+
 function parsePrice(price) {
   return Number(String(price).replace(/[^\d]/g, '')) || 0;
 }
@@ -18,25 +21,46 @@ function formatPrice(value) {
   return `${new Intl.NumberFormat('vi-VN').format(value)}đ`;
 }
 
+function createDefaultForm(customers, products) {
+  const firstCustomer = customers[0]?.name || '';
+  const firstProduct = products[0];
+
+  return {
+    ...defaultFormState,
+    customer: firstCustomer,
+    productId: firstProduct?.id || '',
+    total: firstProduct ? formatPrice(parsePrice(firstProduct.price)) : '',
+  };
+}
+
+function getBadgeVariant(state) {
+  if (state === 'Đã giao') {
+    return 'success';
+  }
+
+  if (state === 'Chờ thanh toán') {
+    return 'warning';
+  }
+
+  return 'secondary';
+}
+
 function OrderManagementSection({ customers, orders, products, onCreateOrder, onDeleteOrder, onUpdateOrder }) {
-  const [formState, setFormState] = useState(defaultFormState);
+  const [formState, setFormState] = useState(() => createDefaultForm(customers, products));
   const [editingOrderId, setEditingOrderId] = useState('');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
-  const selectedProduct = useMemo(
-    () => products.find((product) => product.id === formState.productId),
-    [products, formState.productId],
-  );
-
   useEffect(() => {
-    if (!editingOrderId && customers.length > 0 && products.length > 0) {
+    if (!editingOrderId) {
       setFormState((current) => ({
-        ...current,
-        customer: current.customer || customers[0].name,
-        productId: current.productId || products[0].id,
+        ...createDefaultForm(customers, products),
+        customer: current.customer || customers[0]?.name || '',
+        productId: current.productId || products[0]?.id || '',
       }));
     }
   }, [customers, editingOrderId, products]);
+
+  const selectedProduct = products.find((product) => product.id === formState.productId);
 
   useEffect(() => {
     if (!selectedProduct) {
@@ -53,12 +77,7 @@ function OrderManagementSection({ customers, orders, products, onCreateOrder, on
   };
 
   const resetForm = () => {
-    setFormState({
-      ...defaultFormState,
-      customer: customers[0]?.name || '',
-      productId: products[0]?.id || '',
-      total: products[0] ? formatPrice(parsePrice(products[0].price)) : '',
-    });
+    setFormState(createDefaultForm(customers, products));
     setEditingOrderId('');
   };
 
@@ -150,10 +169,11 @@ function OrderManagementSection({ customers, orders, products, onCreateOrder, on
                     <Form.Group controlId="order-channel">
                       <Form.Label>Kênh bán</Form.Label>
                       <Form.Select name="channel" value={formState.channel} onChange={handleChange}>
-                        <option value="Website">Website</option>
-                        <option value="Shopee">Shopee</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="Tại cửa hàng">Tại cửa hàng</option>
+                        {salesChannels.map((channel) => (
+                          <option key={channel} value={channel}>
+                            {channel}
+                          </option>
+                        ))}
                       </Form.Select>
                     </Form.Group>
                   </Col>
@@ -171,10 +191,11 @@ function OrderManagementSection({ customers, orders, products, onCreateOrder, on
                 <Form.Group controlId="order-state">
                   <Form.Label>Trạng thái</Form.Label>
                   <Form.Select name="state" value={formState.state} onChange={handleChange}>
-                    <option value="Đang đóng gói">Đang đóng gói</option>
-                    <option value="Đang xử lý">Đang xử lý</option>
-                    <option value="Chờ thanh toán">Chờ thanh toán</option>
-                    <option value="Đã giao">Đã giao</option>
+                    {orderStates.map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
                   </Form.Select>
                 </Form.Group>
                 <div className="hero-actions mt-4">
@@ -218,7 +239,9 @@ function OrderManagementSection({ customers, orders, products, onCreateOrder, on
                       </td>
                       <td>{order.channel}</td>
                       <td>{order.total}</td>
-                      <td><Badge bg={order.state === 'Đã giao' ? 'success' : order.state === 'Chờ thanh toán' ? 'warning' : 'secondary'}>{order.state}</Badge></td>
+                      <td>
+                        <Badge bg={getBadgeVariant(order.state)}>{order.state}</Badge>
+                      </td>
                       <td>
                         <div className="table-actions">
                           <Button variant="outline-dark" size="sm" onClick={() => handleEdit(order)}>Sửa</Button>
