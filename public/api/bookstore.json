@@ -1,0 +1,55 @@
+{
+  "categories": [
+    "Van hoc",
+    "Kinh te",
+    "Ky nang song",
+    "Thieu nhi",
+    "Sach moi"
+  ],
+  "books": [
+    {
+      "id": 1,
+      "title": "Nha Gia Kim",
+      "author": "Paulo Coelho",
+      "price": "79.000d",
+      "tag": "Ban chay",
+      "color": "#315f72"
+    },
+    {
+      "id": 2,
+      "title": "Tuoi Tre Dang Gia Bao Nhieu",
+      "author": "Rosie Nguyen",
+      "price": "88.000d",
+      "tag": "Goi y",
+      "color": "#8a4f3d"
+    },
+    {
+      "id": 3,
+      "title": "Dac Nhan Tam",
+      "author": "Dale Carnegie",
+      "price": "96.000d",
+      "tag": "Kinh dien",
+      "color": "#536a3f"
+    },
+    {
+      "id": 4,
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "price": "132.000d",
+      "tag": "Moi",
+      "color": "#6f5875"
+    }
+  ],
+  "cartItems": [
+    {
+      "id": 1,
+      "title": "Nha Gia Kim",
+      "price": "79.000d"
+    },
+    {
+      "id": 4,
+      "title": "Atomic Habits",
+      "price": "132.000d"
+    }
+  ]
+}
