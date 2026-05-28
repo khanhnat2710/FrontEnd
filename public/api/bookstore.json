@@ -1,55 +1,152 @@
 {
+  "header": {
+    "brandName": "BookNest",
+    "tagline": "Kho sách trực tuyến",
+    "navItems": [
+      {
+        "label": "Danh mục",
+        "href": "#categories"
+      },
+      {
+        "label": "Sách nổi bật",
+        "href": "#featured"
+      },
+      {
+        "label": "Ưu đãi",
+        "href": "#deals"
+      },
+      {
+        "label": "Hỗ trợ",
+        "href": "#support"
+      }
+    ],
+    "cartLabel": "Giỏ hàng"
+  },
+  "hero": {
+    "eyebrow": "Giao nhanh trong 2 giờ tại nội thành",
+    "title": "Tìm cuốn sách tiếp theo cho kệ sách của bạn",
+    "description": "Mua sách văn học, kinh tế, kỹ năng và thiếu nhi với gợi ý rõ ràng, giá tốt và quy trình đặt hàng đơn giản.",
+    "searchPlaceholder": "Tìm tên sách, tác giả, ISBN...",
+    "searchButton": "Tìm sách",
+    "showcaseLabel": "Sách đang được quan tâm",
+    "coverBrand": "BookNest",
+    "coverTitle": "Sách mới mỗi ngày",
+    "dealLabel": "Ưu đãi hôm nay",
+    "dealText": "Giảm đến 35%"
+  },
   "categories": [
-    "Van hoc",
-    "Kinh te",
-    "Ky nang song",
-    "Thieu nhi",
-    "Sach moi"
+    "Tất cả",
+    "Văn học",
+    "Kinh tế",
+    "Kỹ năng sống",
+    "Thiếu nhi",
+    "Sách mới"
   ],
   "books": [
     {
       "id": 1,
-      "title": "Nha Gia Kim",
+      "title": "Nhà Giả Kim",
       "author": "Paulo Coelho",
-      "price": "79.000d",
-      "tag": "Ban chay",
+      "category": "Văn học",
+      "price": "79.000đ",
+      "priceValue": 79000,
+      "tag": "Bán chạy",
+      "stock": 18,
       "color": "#315f72"
     },
     {
       "id": 2,
-      "title": "Tuoi Tre Dang Gia Bao Nhieu",
-      "author": "Rosie Nguyen",
-      "price": "88.000d",
-      "tag": "Goi y",
+      "title": "Tuổi Trẻ Đáng Giá Bao Nhiêu",
+      "author": "Rosie Nguyễn",
+      "category": "Kỹ năng sống",
+      "price": "88.000đ",
+      "priceValue": 88000,
+      "tag": "Gợi ý",
+      "stock": 11,
       "color": "#8a4f3d"
     },
     {
       "id": 3,
-      "title": "Dac Nhan Tam",
+      "title": "Đắc Nhân Tâm",
       "author": "Dale Carnegie",
-      "price": "96.000d",
-      "tag": "Kinh dien",
+      "category": "Kỹ năng sống",
+      "price": "96.000đ",
+      "priceValue": 96000,
+      "tag": "Kinh điển",
+      "stock": 15,
       "color": "#536a3f"
     },
     {
       "id": 4,
       "title": "Atomic Habits",
       "author": "James Clear",
-      "price": "132.000d",
-      "tag": "Moi",
+      "category": "Sách mới",
+      "price": "132.000đ",
+      "priceValue": 132000,
+      "tag": "Mới",
+      "stock": 9,
       "color": "#6f5875"
+    },
+    {
+      "id": 5,
+      "title": "Tư Duy Nhanh Và Chậm",
+      "author": "Daniel Kahneman",
+      "category": "Kinh tế",
+      "price": "169.000đ",
+      "priceValue": 169000,
+      "tag": "Nên đọc",
+      "stock": 7,
+      "color": "#5b6d8f"
+    },
+    {
+      "id": 6,
+      "title": "Dế Mèn Phiêu Lưu Ký",
+      "author": "Tô Hoài",
+      "category": "Thiếu nhi",
+      "price": "64.000đ",
+      "priceValue": 64000,
+      "tag": "Thiếu nhi",
+      "stock": 20,
+      "color": "#b46a34"
     }
   ],
   "cartItems": [
     {
       "id": 1,
-      "title": "Nha Gia Kim",
-      "price": "79.000d"
+      "quantity": 1
     },
     {
       "id": 4,
-      "title": "Atomic Habits",
-      "price": "132.000d"
+      "quantity": 1
     }
-  ]
+  ],
+  "order": {
+    "title": "Đơn hàng của bạn",
+    "emptyMessage": "Giỏ hàng đang trống.",
+    "voucherLabel": "Mã giảm giá",
+    "voucherCode": "BOOK10",
+    "totalLabel": "Tạm tính",
+    "checkoutLabel": "Thanh toán",
+    "customerNameLabel": "Họ tên",
+    "phoneLabel": "Số điện thoại",
+    "addressLabel": "Địa chỉ giao hàng",
+    "paymentLabel": "Phương thức thanh toán",
+    "paymentMethods": [
+      "Thanh toán khi nhận hàng",
+      "Chuyển khoản ngân hàng",
+      "Ví điện tử"
+    ],
+    "successMessage": "Đặt hàng thành công. Mã đơn hàng:",
+    "errorMessage": "Không thể tạo đơn hàng. Vui lòng thử lại."
+  },
+  "featured": {
+    "eyebrow": "Lựa chọn phổ biến",
+    "title": "Sách nổi bật",
+    "viewAllLabel": "Hiển thị tất cả",
+    "emptyMessage": "Không tìm thấy sách phù hợp."
+  },
+  "bookCard": {
+    "addLabel": "Thêm",
+    "stockLabel": "Còn"
+  }
 }

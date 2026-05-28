@@ -277,6 +277,12 @@ main {
   color: var(--accent);
 }
 
+.category-strip .btn.active-category {
+  border-color: var(--green);
+  color: white;
+  background: var(--green);
+}
+
 .content-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 330px;
@@ -377,8 +383,16 @@ main {
 }
 
 .book-info .card-text {
-  margin: 0 0 18px;
+  margin: 0 0 10px;
   color: var(--muted);
+}
+
+.stock-line {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .book-info div,
@@ -411,6 +425,36 @@ main {
   border-bottom: 1px solid var(--line);
 }
 
+.order-item {
+  align-items: flex-start;
+}
+
+.order-item > div:first-child {
+  display: grid;
+  gap: 6px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-control .btn {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: white;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.quantity-control .remove-button {
+  color: #991b1b;
+}
+
 .voucher {
   display: grid;
   gap: 8px;
@@ -440,6 +484,52 @@ main {
 
 .checkout-button {
   width: 100%;
+}
+
+.checkout-form {
+  display: grid;
+  gap: 14px;
+}
+
+.checkout-form label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.checkout-form .form-control,
+.checkout-form .form-select {
+  min-height: 44px;
+  border-color: var(--line);
+  border-radius: 8px;
+}
+
+.checkout-status {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.checkout-status-success {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.checkout-status-error {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.checkout-status-loading {
+  color: var(--ink);
+  background: #e0f2fe;
+}
+
+.empty-message {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
 }
 
 @media (max-width: 1080px) {

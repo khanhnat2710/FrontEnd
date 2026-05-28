@@ -1,30 +1,37 @@
 import { Button, Form } from 'react-bootstrap';
 
-function Hero() {
+function Hero({ data, searchTerm, onSearchTermChange, onSearch }) {
+  function handleSubmit(event) {
+    event.preventDefault();
+    onSearch(searchTerm);
+  }
+
   return (
     <section className="hero" id="home">
       <div className="hero-content">
-        <p className="eyebrow">Giao nhanh trong 2 giờ tại nội thành</p>
-        <h1>Tìm cuốn sách tiếp theo cho kệ sách của bạn</h1>
-        <p>
-          Mua sách văn học, kinh tế, kỹ năng và thiếu nhi với gợi ý rõ ràng,
-          giá tốt và quy trình đặt hàng đơn giản.
-        </p>
+        <p className="eyebrow">{data.eyebrow}</p>
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
 
-        <Form className="search-box">
-          <Form.Control type="search" placeholder="Tìm tên sách, tác giả, ISBN..." />
-          <Button type="submit">Tìm sách</Button>
+        <Form className="search-box" onSubmit={handleSubmit}>
+          <Form.Control
+            type="search"
+            value={searchTerm}
+            placeholder={data.searchPlaceholder}
+            onChange={(event) => onSearchTermChange(event.target.value)}
+          />
+          <Button type="submit">{data.searchButton}</Button>
         </Form>
       </div>
 
-      <div className="hero-showcase" aria-label="Sách đang được quan tâm">
+      <div className="hero-showcase" aria-label={data.showcaseLabel}>
         <div className="book-cover cover-main">
-          <span>BookNest</span>
-          <strong>Sách mới mỗi ngày</strong>
+          <span>{data.coverBrand}</span>
+          <strong>{data.coverTitle}</strong>
         </div>
         <div className="mini-card">
-          <span>Ưu đãi hôm nay</span>
-          <strong>Giảm đến 35%</strong>
+          <span>{data.dealLabel}</span>
+          <strong>{data.dealText}</strong>
         </div>
       </div>
     </section>
