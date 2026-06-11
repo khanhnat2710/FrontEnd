@@ -1,25 +1,25 @@
 import { Button, Card } from 'react-bootstrap';
 
-function BookCard({ book, addLabel, stockLabel, onAddToCart }) {
+// BookCard nhận một object book gồm title, author, price, tag và color.
+function BookCard({ book }) {
+  // Destructuring giúp lấy từng thuộc tính từ book để JSX bên dưới ngắn và dễ đọc.
+  const { author, color, price, tag, title } = book;
+
   return (
     <Card className="book-card">
-      <div className="book-thumb" style={{ backgroundColor: book.color }}>
-        <span>{book.tag}</span>
-        <strong>{book.title}</strong>
+      {/* backgroundColor dùng giá trị color từ dữ liệu, vì vậy mỗi sách có màu bìa riêng. */}
+      <div className="book-thumb" style={{ backgroundColor: color }}>
+        <span>{tag}</span>
+        <strong>{title}</strong>
       </div>
+
+      {/* Card.Body là phần thông tin bên dưới bìa: tên sách, tác giả, giá và nút thêm. */}
       <Card.Body className="book-info">
-        <Card.Title as="h3">{book.title}</Card.Title>
-        <Card.Text>
-          {book.author} · {book.category}
-        </Card.Text>
-        <span className="stock-line">
-          {stockLabel}: {book.stock}
-        </span>
+        <Card.Title as="h3">{title}</Card.Title>
+        <Card.Text>{author}</Card.Text>
         <div>
-          <strong>{book.price}</strong>
-          <Button type="button" onClick={() => onAddToCart(book)}>
-            {addLabel}
-          </Button>
+          <strong>{price}</strong>
+          <Button type="button">Thêm</Button>
         </div>
       </Card.Body>
     </Card>
