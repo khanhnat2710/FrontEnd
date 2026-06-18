@@ -1,53 +1,125 @@
-// Dữ liệu mẫu của web. Khi cần đổi nội dung hiển thị, chỉ cần sửa file này.
-// Tách dữ liệu khỏi component giúp JSX gọn hơn và dễ tái sử dụng ở nhiều nơi.
-export const categories = ['Văn học', 'Kinh tế', 'Kỹ năng sống', 'Thiếu nhi', 'Sách mới'];
+export const categories = [
+  'Tất cả',
+  'Văn học',
+  'Kinh tế',
+  'Kỹ năng sống',
+  'Thiếu nhi',
+  'Sách mới',
+];
 
-// Mỗi object trong books đại diện cho một sách được hiển thị ở khu vực "Sách nổi bật".
 export const books = [
   {
-    // title: tên sách hiển thị trên card và trên bìa giả lập.
+    id: 1,
     title: 'Nhà Giả Kim',
-    // author: tên tác giả hiển thị dưới tiêu đề sách.
     author: 'Paulo Coelho',
-    // price: giá bán dạng chuỗi để giữ định dạng tiền Việt Nam.
-    price: '79.000đ',
-    // tag: nhãn nhỏ trên bìa, ví dụ "Bán chạy" hoặc "Mới".
+    category: 'Văn học',
+    price: 79000,
+    originalPrice: 99000,
     tag: 'Bán chạy',
-    // color: màu nền của bìa sách trong BookCard.
     color: '#315f72',
+    rating: 4.9,
+    sold: 1240,
+    stock: 18,
+    pages: 228,
+    description: 'Một hành trình giàu chất thơ về ước mơ, lựa chọn và dấu hiệu của cuộc đời.',
+    image:'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTfqBxtF6j7y6WYQy_IZHjW04BPF-AUvTZfoHiCRDelq8aRPcxgxxdZieHMeASrBns2jw8ndiH0x21y-gLhL1nyjgWXhBqn3rsDdzW6FKXM',
   },
   {
+    id: 2,
     title: 'Tuổi Trẻ Đáng Giá Bao Nhiêu',
     author: 'Rosie Nguyễn',
-    price: '88.000đ',
+    category: 'Kỹ năng sống',
+    price: 88000,
+    originalPrice: 120000,
     tag: 'Gợi ý',
     color: '#8a4f3d',
+    rating: 4.8,
+    sold: 980,
+    stock: 22,
+    pages: 286,
+    description: 'Gợi mở cách học, đi và trải nghiệm để tuổi trẻ có thêm chiều sâu.',
+    image:'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQlYwl83k6T3KDZqkGke-kYZaz6WO0GILmyxMXWs7UzKSOgJuUfb_1-A0KebDlXXqCNW5sPY8FCfEgwACpmPItVyHkjSY-vBrtHQLjSRtm-mKtLiRRJZWeQ',
   },
   {
+    id: 3,
     title: 'Đắc Nhân Tâm',
     author: 'Dale Carnegie',
-    price: '96.000đ',
+    category: 'Kỹ năng sống',
+    price: 96000,
+    originalPrice: 128000,
     tag: 'Kinh điển',
     color: '#536a3f',
+    rating: 4.7,
+    sold: 2100,
+    stock: 35,
+    pages: 320,
+    description: 'Cuốn sách kinh điển về giao tiếp, thấu hiểu con người và xây dựng thiện cảm.',
+    image:'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR1wEBotSZEE4rbQZpV9RiRF1BTvCwu_8rdDZR0xG91EX4rwlXOlccy8g4_jspCW9MQC86xSJCwcYIiqDsBs-M0zWTryK0rIDyNWeMiSDgp',
   },
   {
+    id: 4,
     title: 'Atomic Habits',
     author: 'James Clear',
-    price: '132.000đ',
+    category: 'Sách mới',
+    price: 132000,
+    originalPrice: 168000,
     tag: 'Mới',
     color: '#6f5875',
+    image: 'https://covers.openlibrary.org/b/isbn/9781847941831-L.jpg',
+    rating: 4.9,
+    sold: 1540,
+    stock: 14,
+    pages: 352,
+    description: 'Phương pháp nhỏ nhưng bền vững để xây dựng thói quen tốt mỗi ngày.',
+  },
+  {
+    id: 5,
+    title: 'Cha Giàu Cha Nghèo',
+    author: 'Robert T. Kiyosaki',
+    category: 'Kinh tế',
+    price: 109000,
+    originalPrice: 138000,
+    tag: 'Tài chính',
+    color: '#2f6f5e',
+    image: 'https://covers.openlibrary.org/b/isbn/9781612680194-L.jpg',
+    rating: 4.6,
+    sold: 1760,
+    stock: 11,
+    pages: 336,
+    description: 'Những bài học nền tảng về tư duy tiền bạc, tài sản và tự do tài chính.',
+  },
+  {
+    id: 6,
+    title: 'Hoàng Tử Bé',
+    author: 'Antoine de Saint-Exupéry',
+    category: 'Thiếu nhi',
+    price: 65000,
+    originalPrice: 89000,
+    tag: 'Quà tặng',
+    color: '#c2410c',
+    image: 'https://covers.openlibrary.org/b/isbn/9780156012195-L.jpg',
+    rating: 4.9,
+    sold: 1890,
+    stock: 27,
+    pages: 104,
+    description: 'Câu chuyện trong trẻo dành cho trẻ em và cả người lớn còn giữ một góc hồn nhiên.',
   },
 ];
 
-// cartItems là dữ liệu mẫu cho khung "Đơn hàng của bạn".
-// Hiện tại chỉ lưu title và price vì OrderPanel chỉ cần hai thông tin này để render.
-export const cartItems = [
+export const startingCartItems = [
   {
-    title: 'Nhà Giả Kim',
-    price: '79.000đ',
+    bookId: 1,
+    quantity: 1,
   },
   {
-    title: 'Atomic Habits',
-    price: '132.000đ',
+    bookId: 4,
+    quantity: 1,
   },
 ];
+
+export const formatCurrency = (value) =>
+  new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+    maximumFractionDigits: 0,
+  }).format(value);

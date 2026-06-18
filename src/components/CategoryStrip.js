@@ -1,13 +1,16 @@
 import { Button } from 'react-bootstrap';
 
-// Component nhận prop categories từ App.js.
-// categories là một mảng chuỗi, ví dụ: ['Văn học', 'Kinh tế', ...].
-function CategoryStrip({ categories }) {
+function CategoryStrip({ categories, selectedCategory, onSelectCategory }) {
   return (
     <section className="category-strip" id="categories" aria-label="Danh mục sách">
-      {/* map tạo một Button cho mỗi danh mục; key giúp React nhận diện từng phần tử trong danh sách. */}
       {categories.map((category) => (
-        <Button variant="light" type="button" key={category}>
+        <Button
+          className={category === selectedCategory ? 'active-category' : ''}
+          variant="light"
+          type="button"
+          key={category}
+          onClick={() => onSelectCategory(category)}
+        >
           {category}
         </Button>
       ))}
